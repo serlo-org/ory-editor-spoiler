@@ -11,31 +11,36 @@ import { white } from 'material-ui/styles/colors'
 import type { LayoutPluginProps, ContentPlugin } from 'ory-editor-core/lib/service/plugin/classes'
 
 class PluginComponent extends Component {
-  state = { hidden: false }
-  props: LayoutPluginProps<{}> & { children: any }
+	state = { hidden: false }
+	props: LayoutPluginProps<{}> & { children: any }
 
-  onToggle = () => {
-    this.setState({ hidden: !this.state.hidden })
-  }
+	onToggle = () => {
+		this.setState({ hidden: !this.state.hidden })
+	}
 
-  render() {
-    const { children } = this.props
-    return (
-      <MuiThemeProvider muiTheme={getMuiTheme()}>
-        <Paper>
-          <div className="ory-plugins-layout-spoiler-content" style={{ display: this.state.hidden ? 'none' : 'block' }}>
-            {children}
-          </div>
-          <div className="ory-plugins-layout-spoiler-toggle" onClick={this.onToggle}>
-            {this.state.hidden
-              ? <ExpandMore color={white} size={32} />
-              : <ExpandLess color={white} size={32} />
-            }
-          </div>
-        </Paper>
-      </MuiThemeProvider>
-    )
-  }
+	render() {
+	const { children } = this.props
+		return (
+			<MuiThemeProvider muiTheme={getMuiTheme()}>
+				<Paper>
+					<div className="ory-plugins-layout-spoiler-toggle" onClick={this.onoggle}>
+						{this.state.hidden
+							? <ExpandMore color={white} size={32} />
+							: <ExpandLess color={white} size={32} />
+						}
+						title
+						<div className="ory-editor-layout-spoiler-title">
+							Title
+						</div>
+								
+					</div>
+					<div className="ory-plugins-layout-spoiler-content" style={{ display: this.state.hidden ? 'none' : 'block' }}>
+						{children}
+					</div>
+				</Paper>
+			</MuiThemeProvider>
+		)
+	}
 }
 
 export default ({ defaultPlugin }: { defaultPlugin: ContentPlugin }) => ({
