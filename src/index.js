@@ -1,4 +1,3 @@
-// @flow
 import React, { Component } from 'react'
 import uuid from 'uuid'
 import Paper from 'material-ui/Paper'
@@ -19,23 +18,18 @@ class PluginComponent extends Component {
 	}
 
 	render() {
-	const { children } = this.props
+		const { children } = this.props
 		return (
 			<MuiThemeProvider muiTheme={getMuiTheme()}>
 				<Paper>
-					<div className="ory-plugins-layout-spoiler-toggle" onClick={this.onoggle}>
+					<div className="ory-plugins-layout-spoiler-content" style={{ display: this.state.hidden ? 'none' : 'block' }}>
+						{children}
+					</div>
+					<div className="ory-plugins-layout-spoiler-toggle" onClick={this.onToggle}>
 						{this.state.hidden
 							? <ExpandMore color={white} size={32} />
 							: <ExpandLess color={white} size={32} />
 						}
-						title
-						<div className="ory-editor-layout-spoiler-title">
-							Title
-						</div>
-								
-					</div>
-					<div className="ory-plugins-layout-spoiler-content" style={{ display: this.state.hidden ? 'none' : 'block' }}>
-						{children}
 					</div>
 				</Paper>
 			</MuiThemeProvider>
@@ -44,21 +38,21 @@ class PluginComponent extends Component {
 }
 
 export default ({ defaultPlugin }: { defaultPlugin: ContentPlugin }) => ({
-  Component: PluginComponent,
-  name: 'ory/editor/core/layout/spoiler',
-  version: '0.0.1',
+	Component: PluginComponent,
+	name: 'ory/editor/core/layout/spoiler',
+	version: '0.0.1',
 
-  text: 'Hidden Text',
-  IconComponent: <FilterFrames />,
+	text: 'Hidden Text',
+	IconComponent: <FilterFrames />,
 
-  createInitialChildren: () => ({
-    id: uuid(),
-    rows: [{
-      id: uuid(),
-      cells: [{
-        content: { plugin: defaultPlugin, state: defaultPlugin.createInitialState() },
-        id: uuid(),
-      }]
-    }]
-  })
+	createInitialChildren: () => ({
+		id: uuid(),
+		rows: [{
+			id: uuid(),
+			cells: [{
+				content: { plugin: defaultPlugin, state: defaultPlugin.createInitialState() },
+				id: uuid(),
+			}]
+		}]
+	})
 })
