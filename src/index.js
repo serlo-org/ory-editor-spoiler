@@ -7,7 +7,8 @@ import ExpandMore from 'material-ui/svg-icons/navigation/expand-more'
 import ExpandLess from 'material-ui/svg-icons/navigation/expand-less'
 import FilterFrames from 'material-ui/svg-icons/image/filter-frames'
 import { white } from 'material-ui/styles/colors'
-import type { LayoutPluginProps, ContentPlugin } from 'ory-editor-core/lib/service/plugin/classes'
+import type, { LayoutPluginProps, ContentPlugin } from 'ory-editor-core/lib/service/plugin/classes'
+import TextField from 'material-ui/TextField'
 
 class PluginComponent extends Component {
 	state = { hidden: false }
@@ -18,18 +19,24 @@ class PluginComponent extends Component {
 	}
 
 	render() {
-		const { children } = this.props
+		const { state, children, readOnly, onChange} = this.props
 		return (
 			<MuiThemeProvider muiTheme={getMuiTheme()}>
 				<Paper>
-					<div className="ory-plugins-layout-spoiler-content" style={{ display: this.state.hidden ? 'none' : 'block' }}>
-						{children}
-					</div>
-					<div className="ory-plugins-layout-spoiler-toggle" onClick={this.onToggle}>
+					<div  className="ory-plugins-layout-spoiler-toggle" onClick={this.onToggle}>
 						{this.state.hidden
 							? <ExpandMore color={white} size={32} />
 							: <ExpandLess color={white} size={32} />
 						}
+						{readOnly
+							?	state.title
+							:	<TextField className="ory-plugins-layout-spoiler-toggle-title" disabled={readOnly} 
+									onChange={ (e)=>onChange({title: e.target.value}) } value={state.title} hintText="Your Title Here" floatingLabelText="Title"/>
+						}
+					</div>
+
+					<div className="ory-plugins-layout-spoiler-content" style={{ display: this.state.hidden ? 'none' : 'block' }}>
+						{children}
 					</div>
 				</Paper>
 			</MuiThemeProvider>
