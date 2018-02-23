@@ -1,5 +1,5 @@
 {
-  "name": "ory-editor-plugins-spoiler-new",
+  "name": "ory-editor-plugins-spoiler",
   "version": "0.0.0",
   "main": "./lib/index.js",
   "scripts": {
